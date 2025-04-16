@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator<RootNavigationParams>();
 function RootNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={SCREEN_CONS.HOME}>
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={SCREEN_CONS.LOGIN}>
         {HOME_STACK.map(screen => (
           <Stack.Screen
             key={screen.name}

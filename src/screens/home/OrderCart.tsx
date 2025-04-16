@@ -5,18 +5,13 @@ import {
   FlatList,
   Image,
   StyleSheet,
-  TextInput,
   View,
 } from 'react-native';
-import {useGetHotCoffeesQuery} from 'src/redux/api/example/coffeeApi';
-import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import {setOrderCart} from 'src/redux/slices/orderSlice';
+import {useAppSelector} from 'src/redux/store';
 
 
 function OrderListScreen() {
-  const {data} = useGetHotCoffeesQuery({categories: 'hot'});
   const {orderList} = useAppSelector((state)=>state.order)
-  const dispatch = useAppDispatch();
 
 
   return (

@@ -2,13 +2,15 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Typography } from '@components/atom';
+import { ReactNode } from 'react';
 
 export interface HeaderProps {
     title: string
     isBackButton?: boolean
+    rightContent?: ReactNode
 }
 
-const Header = ({title, isBackButton}:HeaderProps) => {
+const Header = ({title, isBackButton, rightContent}:HeaderProps) => {
   const navigation = useNavigation();
 
   return (
@@ -19,7 +21,7 @@ const Header = ({title, isBackButton}:HeaderProps) => {
       </TouchableOpacity>
       )}
       <Typography style={styles.title}>{title}</Typography>
-      <View style={{ width: 24 }} />
+      {rightContent ? rightContent : <View style={{ width: 24 }} /> }
     </View>
   );
 };

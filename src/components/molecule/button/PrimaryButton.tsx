@@ -16,6 +16,6 @@ function PrimaryButton({text, ...props}: PrimaryButtonProps) {
 
 const style = StyleSheet.create({
   container: {backgroundColor:'#34eb89',paddingHorizontal: 24, paddingVertical: 10, borderRadius: 16},
-  text: {fontWeight: '600', fontSize: 18}
+  text: {fontWeight: '600', fontSize: 18, textAlign:'center'}
 })
 export default PrimaryButton;
