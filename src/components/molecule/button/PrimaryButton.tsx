@@ -1,17 +1,21 @@
 import Typography from '@components/atom/typography/Typography';
 import React from 'react';
-import {Button, ButtonProps} from 'react-native';
+import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
-interface PrimaryButtonProps extends ButtonProps {
-  text: string;
+interface PrimaryButtonProps extends TouchableOpacityProps {
+  text: string
 }
 
 function PrimaryButton({text, ...props}: PrimaryButtonProps) {
   return (
-    <Button {...props}>
-      <Typography>{text}</Typography>
-    </Button>
+    <TouchableOpacity {...props} style={style.container}>
+      <Typography style={style.text}>{text}</Typography>
+    </TouchableOpacity>
   );
 }
 
+const style = StyleSheet.create({
+  container: {backgroundColor:'#34eb89',paddingHorizontal: 24, paddingVertical: 10, borderRadius: 16},
+  text: {fontWeight: '600', fontSize: 18}
+})
 export default PrimaryButton;

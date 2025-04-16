@@ -4,8 +4,7 @@ export type RootNavigationParams = {
   HOME: {
     id: string;
   };
+  ORDER_LIST: undefined
 };
 
-export const RootStack = createNativeStackNavigator<{
-  HOME: {id: string};
-}>();
+export const RootStack = createNativeStackNavigator<RootNavigationParams>();

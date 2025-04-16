@@ -1,40 +1,28 @@
 import {Typography} from '@components/atom';
 import {Container} from '@components/template';
-import {RouteProp } from '@react-navigation/native';
 import React from 'react';
 import {
   FlatList,
   Image,
   StyleSheet,
   TextInput,
-  useWindowDimensions,
   View,
 } from 'react-native';
-import {RootNavigationParams} from 'src/navigation/navigationType';
 import {useGetHotCoffeesQuery} from 'src/redux/api/example/coffeeApi';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import {setOrderCart} from 'src/redux/slices/orderSlice';
-import { PrimaryButton } from '@components/molecule';
-import { useRootNavigation } from 'src/hooks/useRootNavigation';
-import { SCREEN_CONS } from '@utils/constant/screen.constant';
 
-type HomeScreenRouteProp = RouteProp<RootNavigationParams, 'HOME'>;
 
-type HomeScreenProps = {
-  route?: HomeScreenRouteProp;
-};
-
-function HomeScreen({route}: HomeScreenProps) {
+function OrderListScreen() {
   const {data} = useGetHotCoffeesQuery({categories: 'hot'});
-  const dispatch = useAppDispatch();
   const {orderList} = useAppSelector((state)=>state.order)
-  const {width} = useWindowDimensions()
-  const navigation = useRootNavigation()
+  const dispatch = useAppDispatch();
+
 
   return (
-    <Container headerConfig={{title: 'Coffee Menu'}}>
+    <Container headerConfig={{title: 'Order List', isBackButton: true}}>
       <FlatList
-        data={data}
+        data={orderList}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id.toString()}
@@ -48,39 +36,22 @@ function HomeScreen({route}: HomeScreenProps) {
               </Typography>
             </View>
             <View style={styles.inputContainer}>
-              <TextInput
-                onEndEditing={e =>
-                  dispatch(
-                    setOrderCart({
-                      ...item,
-                      quantity: Number(e.nativeEvent.text),
-                    }),
-                  )
-                }
-                keyboardType="number-pad"
-                placeholder="Quantity"
-                style={styles.textInput}
-              />
+              <Typography style={styles.description}>Quantity:</Typography>
+              <Typography style={styles.description}>{item.quantity}</Typography>
             </View>
           </View>
         )}
       />
-      <View style={[styles.floatingButton, { width}]}>
-      {!!orderList?.length && (
-        <PrimaryButton text='Continue' onPress={()=>navigation.navigate(SCREEN_CONS.ORDER_LIST)}/>
-      )}
-      </View>
     </Container>
   );
 }
 
 const styles = StyleSheet.create({
   iconPlus: {marginLeft: 10},
-  inputContainer: {flexDirection: 'row', alignItems: 'center'},
+  inputContainer: {flexDirection: 'row', alignItems: 'center', marginLeft:16},
   container: {
     paddingHorizontal: 16,
     paddingTop: 24,
-    paddingBottom: 200
   },
   card: {
     backgroundColor: '#fff',
@@ -118,7 +89,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 5,
   },
-  floatingButton: {position:'absolute',bottom:120, alignItems:'center'}
 });
 
-export default HomeScreen;
+export default OrderListScreen
