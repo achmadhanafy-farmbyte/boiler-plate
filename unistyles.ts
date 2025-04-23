@@ -3,12 +3,20 @@ import {StyleSheet} from 'react-native-unistyles';
 const lightTheme = {
   colors: {
     primary: '#34eb89',
+    backgroundClear: '#fff',
+    backgroundGray: '#f7f7f7',
+    textColor: "#000",
+    textInputBg: '#fff'
   },
 };
 
 const darkTheme = {
   colors: {
     primary: '#34eb89',
+    backgroundClear: "#000",
+    backgroundGray: "#000",
+    textColor: '#fff',
+        textInputBg: '#4a4945'
   },
 };
 
@@ -35,7 +43,7 @@ declare module 'react-native-unistyles' {
 
 StyleSheet.configure({
   settings: {
-    initialTheme: 'light',
+    adaptiveThemes: true,
   },
   breakpoints,
   themes: appThemes,

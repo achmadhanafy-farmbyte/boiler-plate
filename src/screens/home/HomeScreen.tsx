@@ -1,11 +1,10 @@
 import {Typography} from '@components/atom';
 import {Container} from '@components/template';
 import {RouteProp} from '@react-navigation/native';
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect } from 'react';
 import {
   FlatList,
   Image,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   useWindowDimensions,
@@ -20,6 +19,8 @@ import {useRootNavigation} from 'src/hooks/useRootNavigation';
 import {SCREEN_CONS} from '@utils/constant/screen.constant';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useMMKVString} from 'react-native-mmkv';
+import {useTranslation} from 'react-i18next';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 type HomeScreenRouteProp = RouteProp<RootNavigationParams, 'HOME'>;
 
@@ -34,6 +35,8 @@ function HomeScreen({}: HomeScreenProps) {
   const {width} = useWindowDimensions();
   const navigation = useRootNavigation();
   const [token, setToken] = useMMKVString('user.token');
+  const {t} = useTranslation();
+  const {theme} = useUnistyles();
 
   useEffect(() => {
     if (!token) {
@@ -56,13 +59,13 @@ function HomeScreen({}: HomeScreenProps) {
   return (
     <Container
       headerConfig={{
-        title: 'Coffee Menu',
+        title: t("coffeeMenu"),
         rightContent: (
           <TouchableOpacity
             onPress={() => setToken(undefined)}
             style={styles.logoutContainer}>
-            <Icon name="logout" style={{marginRight: 5}} size={16} />
-            <Typography style={{fontWeight: '600'}}>Logout</Typography>
+            <Icon name="logout" color={theme.colors.textColor} style={{marginRight: 5}} size={16} />
+            <Typography style={{fontWeight: '600'}}>{t('logout')}</Typography>
           </TouchableOpacity>
         ),
       }}>
@@ -83,16 +86,16 @@ function HomeScreen({}: HomeScreenProps) {
             <View style={styles.inputContainer}>
               <TextInput
                 value={getQuantity(item.id)}
-                onChangeText={(e)=>{
+                onChangeText={e => {
                   dispatch(
                     setOrderCart({
                       ...item,
                       quantity: Number(e),
                     }),
-                  )
+                  );
                 }}
                 keyboardType="number-pad"
-                placeholder="Quantity"
+                placeholder={t('quantity')}
                 style={styles.textInput}
               />
             </View>
@@ -102,7 +105,7 @@ function HomeScreen({}: HomeScreenProps) {
       <View style={[styles.floatingButton, {width}]}>
         {!!orderList?.length && (
           <PrimaryButton
-            text="Continue"
+            text={t('continue')}
             onPress={() => navigation.navigate(SCREEN_CONS.ORDER_LIST)}
           />
         )}
@@ -111,10 +114,10 @@ function HomeScreen({}: HomeScreenProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme)=>({
   logoutContainer: {flexDirection: 'row', alignItems: 'center'},
   iconPlus: {marginLeft: 10},
-  inputContainer: {flexDirection: 'row', alignItems: 'center'},
+  inputContainer: {flexDirection: 'row', alignItems: 'center', marginBottom: 10},
   container: {
     paddingHorizontal: 16,
     paddingTop: 24,
@@ -155,8 +158,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginLeft: 10,
     padding: 5,
+    backgroundColor: theme.colors.textInputBg,
+    color: theme.colors.textColor,
   },
-  floatingButton: {position: 'absolute', bottom: 120, alignItems: 'center'},
-});
+  floatingButton: {position: 'absolute', bottom: 50, alignItems: 'center'},
+}));
 
 export default HomeScreen;

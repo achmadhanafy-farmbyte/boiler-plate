@@ -22,6 +22,6 @@ const style = StyleSheet.create(theme => ({
     paddingVertical: 10,
     borderRadius: 16,
   },
-  text: {fontWeight: '600', fontSize: 18, textAlign: 'center'},
+  text: {fontWeight: '600', fontSize: 18, textAlign: 'center', color: theme.colors.backgroundClear},
 }));
 export default PrimaryButton;

@@ -1,21 +1,23 @@
 import {Typography} from '@components/atom';
 import {Container} from '@components/template';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FlatList,
   Image,
-  StyleSheet,
   View,
 } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 import {useAppSelector} from 'src/redux/store';
 
 
 function OrderListScreen() {
   const {orderList} = useAppSelector((state)=>state.order)
+  const {t} = useTranslation();
 
 
   return (
-    <Container headerConfig={{title: 'Order List', isBackButton: true}}>
+    <Container headerConfig={{title: t("orderList"), isBackButton: true}}>
       <FlatList
         data={orderList}
         contentContainerStyle={styles.container}
@@ -31,7 +33,7 @@ function OrderListScreen() {
               </Typography>
             </View>
             <View style={styles.inputContainer}>
-              <Typography style={styles.description}>Quantity:</Typography>
+              <Typography style={styles.description}>{t("quantity")}:</Typography>
               <Typography style={styles.description}>{item.quantity}</Typography>
             </View>
           </View>
@@ -41,7 +43,7 @@ function OrderListScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme)=>({
   iconPlus: {marginLeft: 10},
   inputContainer: {flexDirection: 'row', alignItems: 'center', marginLeft:16},
   container: {
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#666',
+    marginBottom: 8,
   },
   textInput: {
     borderColor: 'black',
@@ -84,6 +87,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 5,
   },
-});
+}));
 
 export default OrderListScreen
