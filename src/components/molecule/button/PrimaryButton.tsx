@@ -1,9 +1,10 @@
 import Typography from '@components/atom/typography/Typography';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {StyleSheet} from 'react-native-unistyles';
 
 interface PrimaryButtonProps extends TouchableOpacityProps {
-  text: string
+  text: string;
 }
 
 function PrimaryButton({text, ...props}: PrimaryButtonProps) {
@@ -14,8 +15,13 @@ function PrimaryButton({text, ...props}: PrimaryButtonProps) {
   );
 }
 
-const style = StyleSheet.create({
-  container: {backgroundColor:'#34eb89',paddingHorizontal: 24, paddingVertical: 10, borderRadius: 16},
-  text: {fontWeight: '600', fontSize: 18, textAlign:'center'}
-})
+const style = StyleSheet.create(theme => ({
+  container: {
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    borderRadius: 16,
+  },
+  text: {fontWeight: '600', fontSize: 18, textAlign: 'center'},
+}));
 export default PrimaryButton;

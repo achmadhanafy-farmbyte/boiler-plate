@@ -14,5 +14,6 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       },
     ],
+    'react-native-unistyles/plugin',
   ],
 };
